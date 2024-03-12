@@ -17,10 +17,14 @@ mongoose.connect(MONGO_URI).then(() => {
   console.log("MongoDB Connected")
 }).catch(err => console.log(err));
 
+const corsOptions = {
+  origin: 'https://dealsdray.netlify.app/',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
-app.use(cors())
+app.use(cors(corsOptions))
 // Routers
 app.use("/dealsdray", signUpRouter)
 app.use("/dealsdray", loginRouter)
