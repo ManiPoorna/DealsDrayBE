@@ -7,8 +7,9 @@ const employeeSchema = new mongoose.Schema({
   mobile: { type: String, required: true },
   designation: { type: String, required: true },
   gender: { type: String, required: true },
-  course: { type: String, required: true },
-  date: { type: Date, default: Date.now }
+  course: { type: Array, required: true },
+  date: { type: Date, default: Date.now },
+  image: { type: String }
 });
 
 // Create a Mongoose model from the schema

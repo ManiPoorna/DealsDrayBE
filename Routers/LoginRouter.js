@@ -1,6 +1,7 @@
 const express = require('express');
 const loginRouter = express.Router();
 const checkAccountExists = require('../Controllers/checkAccountExists');
+const User = require('../Schemas/userSchema');
 
 loginRouter.post("/login", async (req, res) => {
   // parsing loginid and password
@@ -12,7 +13,11 @@ loginRouter.post("/login", async (req, res) => {
   if (userDetails != null) {
     // check password (correct / wrong)
     if (userDetails.password === password) {
-      userDetails.isLoggedin = true;
+      const user = await User.findOneAndUpdate(
+        { username: userDetails.username },
+        { $set: { isLoggedin: true } },
+        { new: true }
+      );
       return res.send({ status: 200, message: "Login successful",data :userDetails })
     }
     else {
